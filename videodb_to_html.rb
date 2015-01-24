@@ -113,25 +113,30 @@ def host_name_exist (host_name)
   end
 end
 Dir.mkdir(outputlocation + "/cache") unless Dir.exists?(outputlocation + "/cache")
+movie_counter = 0
 movie_array.each do |row|
-  url = row[7]
-  puts url
   next if url == "No information available"
+  url = row[7]
+  movie_array[movie_counter][7] = ""
+  download_status = " - failed\n"
+  print url
   url_parsed = URI.parse(url)
   movie_picture_host = url_parsed.host
   movie_picture_name = File.basename(url_parsed.path)
   if movie_picture_host.to_s.strip.length != 0
     if host_name_exist(movie_picture_host)
       return_code = Net::HTTP.get_response(URI.parse(url.to_s)).code
-      puts return_code
       if return_code == "200" or return_code == "301" or return_code == "302"
-        puts movie_picture_name
         movie_picture_content = open(url).read
         movie_picture_filename = "cache/" + movie_picture_name
         File.open(movie_picture_filename, 'w'){|file| file.write(movie_picture_content)}
+        movie_array[movie_counter][7] = movie_picture_filename
+        download_status = " - done\n"
       end
     end
   end
+  print download_status
+  movie_counter += 1
 end
 
 # Generate HTML file out of movie grid
@@ -144,11 +149,8 @@ video_html_file.puts "<div id=\"main\">"
 video_html_file.puts "<h1>Kodi Mediacenter Content List</h1>"
 video_html_file.puts "<table border=\"1\">"
 movie_array.each do |row|
-  url_parsed = URI.parse(row[7])
-  movie_picture_name = File.basename(url_parsed.path)
-  movie_picture_filename = "cache/" + movie_picture_name
   video_html_file.puts "<tr>"
-  video_html_file.puts "<td><img src=\"#{movie_picture_filename}\" height=\"128\" width=\"128\"></td>"
+  video_html_file.puts "<td><img src=\"#{row[7]}\" height=\"128\" width=\"128\"></td>"
   video_html_file.puts "<td>#{row[0]}<br />#{row[1]}<br />#{row[2]}<br />#{row[3]}<br />#{row[4]}<br />#{row[5]}</td>"
   video_html_file.puts "<td>#{row[6]}</td>"
   video_html_file.puts "</tr>"
@@ -166,3 +168,5 @@ puts "HTML files successfully generated!"
 # puts movie_array
 
 # TODO tv series need to be catched as well
+# TODO style sheet settings to html output
+# FIXME Check why sometimes the image ordering isn't aligned

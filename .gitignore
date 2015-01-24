@@ -43,3 +43,8 @@ Icon?
 
 # ZSH Cake plugin cache
 /.cake_task_cache
+
+# Kodi
+cache/
+kodi-content.html
+videodb.xml
