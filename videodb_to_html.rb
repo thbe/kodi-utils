@@ -8,7 +8,7 @@
 #
 
 # TODO tv series need to be catched as well
-# TODO style sheet settings to html output
+# TODO style sheet settings for img tag
 
 # Include required libraries
 require 'nokogiri'
@@ -220,9 +220,6 @@ movie_array.each do |row|
       download_status = " - skipped, image already in cache\n"
     end
   end
-  puts ""
-  puts movie_array[movie_counter][7]
-  puts ""
   print download_status
   movie_counter += 1
 end
@@ -233,6 +230,12 @@ video_html_file = File.new(outputfile, "w+")
 video_html_file.puts "<html>"
 video_html_file.puts "<head>"
 video_html_file.puts "  <title>Kodi Mediacenter Content List</title>"
+video_html_file.puts "  <meta charset=\"UTF-8\">"
+video_html_file.puts "  <style type=\"text/css\">"
+video_html_file.puts "  <!--"
+video_html_file.puts "    @charset \"UTF-8\""
+video_html_file.puts "  -->"
+video_html_file.puts "  </style>"
 video_html_file.puts "</head>"
 video_html_file.puts "<body>"
 video_html_file.puts "  <div id=\"main\">"
