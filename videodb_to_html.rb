@@ -3,8 +3,10 @@
 # This script generates a HTML page of movies and TV series
 # based on the content from Kodi videodb.xml
 #
-# Author: Thomas Bendler <project@bendler-net.de>
-# Date:   Fri Jan 23 18:50:37 CET 2015
+# Author:  Thomas Bendler <project@bendler-net.de>
+# Date:    Fri Jan 23 18:50:37 CET 2015
+#
+# Version: v0.9
 #
 
 # Include required libraries
@@ -273,6 +275,8 @@ video_html_file.puts "    #kodi td, #kodi th {"
 video_html_file.puts "      font-size: 1em;"
 video_html_file.puts "      border: 1px solid #98bf21;"
 video_html_file.puts "      padding: 3px 7px 2px 7px;"
+video_html_file.puts "      align: justify;"
+video_html_file.puts "      valign: top;"
 video_html_file.puts "    }"
 video_html_file.puts "    #kodi th {"
 video_html_file.puts "      font-size: 1.1em;"
@@ -310,7 +314,7 @@ movie_array.each do |row|
   video_html_file.puts table_row_format
   video_html_file.puts "      <td><img src=\"#{row[7]}\"></td>"
   video_html_file.puts "      <td>"
-  video_html_file.puts "        Title: #{row[0]}<br />"
+  video_html_file.puts "        <b>Title: #{row[0]}</b><br />"
   video_html_file.puts "        Country: #{row[1]}<br />"
   video_html_file.puts "        Director: #{row[2]}<br />"
   video_html_file.puts "        Studio: #{row[3]}<br />"
@@ -338,8 +342,8 @@ tvshow_array.each do |row|
   video_html_file.puts table_row_format
   video_html_file.puts "      <td><img src=\"#{row[7]}\"></td>"
   video_html_file.puts "      <td>"
-  video_html_file.puts "        TV-Show: #{row[0]}<br />"
-  video_html_file.puts "        Title: #{row[1]}<br />"
+  video_html_file.puts "        <b>TV-Show: #{row[1]}</b><br />"
+  video_html_file.puts "        Title: #{row[0]}<br />"
   video_html_file.puts "        Season: #{row[2]}<br />"
   video_html_file.puts "        Episode: #{row[3]}<br />"
   video_html_file.puts "        Year: #{row[4]}<br />"
