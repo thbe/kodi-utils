@@ -1,4 +1,4 @@
-#! /bin/ruby
+#! /usr/bin/env ruby
 #
 # This script generates a HTML page of movies and TV series
 # based on the content from Kodi videodb.xml
